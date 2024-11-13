@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from accounts.models import User
 # Create your models here.
 
 class Pet(models.Model):
@@ -10,6 +10,7 @@ class Pet(models.Model):
         ('Other', 'Other'),
         ('not_mentioned', 'Prefer Not to Say')
     ]
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=300)
     age  = models.PositiveSmallIntegerField(verbose_name='Pet age', validators=[MinValueValidator(0), MaxValueValidator(800)])
     description = models.TextField()
